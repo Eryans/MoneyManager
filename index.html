@@ -25,19 +25,34 @@
 
 <body>
   <header class="bg-dark text-white text-center d-lg-none">
-    <h1>Money Manager</h1>
+    <h1 class="m-0 p-2">Money Manager</h1>
   </header>
 
-  <main class="container-fluid d-flex align-content-center flex-column flex-lg-row flex-wrap p-3 bg-info">
+  <main class="container-fluid d-flex align-content-center flex-column flex-lg-wrap flex-lg-rowp-3 bg-info">
     
-    <div class="row col-lg-4 order-lg-2 bg-light text-center" id="bankAccount">
-      <section>
-        <h2>Account Name</h2>
-        <p>XXX €</p>
-      </section>
+    <div class="row col-lg-4 order-lg-2 bg-white text-center justify-content-center" id="bankAccount">
+      <h2>Comptes :</h2>
+      <article class="bg-light col-10 my-2 p-2 shadow">
+        <h3>Compte Dépôt</h3>
+        <p>XXX XXX XXX FR XX</p>
+        <p>Mr John Doe</p>
+        <button class="btn shadow">Dépot</button>
+        <button class="btn shadow">Retrait</button>
+        <form class="p-2">
+          <label for="originAccount">
+            <input type="text" name="originAccount" id="originAccount" placeholder="Compte émetteur">
+          </label> 
+          <label for="receiveAccount">
+            <input type="text" name="originAccount" id="originAccount" placeholder="Compte receveur">
+          </label>
+          <label for="amount">
+            <input type="text" name="amount" id="amount" placeholder="Montant total">
+          </label>
+        </form>
+      </article>
     </div>
-
-    <div class="d-lg-flex flex-column col-lg-8 gap-2  bg-success p-2" id="bankOptionsContainer">
+    
+    <div class="d-lg-flex flex-column col-12 col-lg-8 gap-2  bg-success" id="bankOptionsContainer">
       <section class="row flex-wrap flex-column mx-lg-4" id="bankStatsArtcl">
           <h1 class="d-none d-lg-block text-white col-8 bg-dark">
             Money Manager
@@ -58,11 +73,13 @@
             </ul>
         </aside>
       </section>
+
       <div class="bg-primary row mx-4" id="bankOpe">
         <section class="bg-primary text-center d-none d-lg-block">
           <h2>Operation & Settings</h2>
         </section>
       </div>
+
     </div>
   </main>
   <footer>
