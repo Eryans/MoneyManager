@@ -27,4 +27,4 @@ Array.from(expandBtns).forEach(x => x.addEventListener("click",function(){
 createNewCard();
 
 
-console.log(expandBtns)
+console.log(expandBtns);

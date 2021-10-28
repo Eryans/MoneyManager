@@ -89,9 +89,7 @@ textarea {
 body{
   background-color: rgb(102, 102, 102);
 }
-th,td,table{
-  border: 2px solid black;
-}
+
 article{
   background-color: chartreuse;
   margin: 1rem;
