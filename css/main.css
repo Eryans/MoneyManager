@@ -89,6 +89,9 @@ textarea {
 body{
   background-color: rgb(102, 102, 102);
 }
+th,td,table{
+  border: 2px solid black;
+}
 #blocker{
   opacity: .8;
   z-index: 1;

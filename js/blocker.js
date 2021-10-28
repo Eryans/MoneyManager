@@ -12,11 +12,14 @@ httpRequest.onreadystatechange = function(){
         if (httpRequest.status === 200){
             let response = JSON.parse(httpRequest.response);
             console.log(response);
+            document.querySelector("#securityTitle").innerText = response.title;
+            document.querySelector("#securityText").innerText = response.text;
         }
     } else {
-        console.log("loading");
+        document.querySelector("#securityTitle").innerText = "Error loading text";
+        document.querySelector("#securityText").innerText = "Error loading text";
     }
-    httpRequest.open("GET","json/security.json",true);
-    httpRequest.send();
 }
+httpRequest.open("GET","json/security.json",true);
+httpRequest.send();
 // 

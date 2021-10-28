@@ -2,6 +2,7 @@
 const bankCard = document.querySelector(".bankCard");
 let expandBtns = document.getElementsByClassName("bankExpandButton");
 
+// TODO bankCard object
 class BankCard{
     constructor(){
         this.card = bankCard.cloneNode(true);
