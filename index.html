@@ -24,18 +24,101 @@
 </head>
 
 <body>
+  <div id="blocker" class="bg-dark text-white position-fixed h-100 w-100"></div>
+  <section id="securityInfo" class="bg-light position-fixed container p-0">
+    <h2 class="bg-primary col-12 p-2 m-0 ">Information de sécurité</h2>
+    <p id="securityText" class="m-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda perferendis architecto culpa. Consequatur recusandae tenetur, minus beatae veniam doloribus dignissimos aliquid quae corporis obcaecati cum id! Architecto exercitationem nulla cum.</p>
+    <button id="securityBtn"class="m-2">J'ai compris</button>
+  </section>
+
   <header class="bg-dark text-white text-center d-lg-none">
     <h1 class="m-0 p-2">Money Manager</h1>
   </header>
 
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
   <main class="container-fluid d-flex align-content-center flex-column flex-lg-wrap flex-lg-rowp-3 bg-info">
-    
-    <div class="row col-lg-4 order-lg-2 bg-white text-center justify-content-center" id="bankAccount">
+
+    <section class="row bg-white justify-content-center" id="bankAccount">
       <h2>Comptes :</h2>
-      <article class="bg-light col-10 my-2 p-2 shadow">
-        <h3>Compte Dépôt</h3>
-        <p>XXX XXX XXX FR XX</p>
-        <p>Mr John Doe</p>
+      <article class="bg-light col-10 my-2 p-2 shadow bankCard d-flex flex-column">
+        <div class=" bg-primary text-white shadow p-2 d-flex flex-column">
+          <table class="d-block">
+            <tr>
+              <th>
+                solde :
+              </th>
+            </tr>
+            <tr>
+              <td class="balanceTotal">
+                XXX €
+              </td>
+            </tr>
+            <tr>
+              <th>
+                Numéro Carte :
+              </th>
+            </tr>
+            <tr>
+              <td class="cardNumber">
+                XXXX XXXX XXXX FR XX
+              </td>
+            </tr>
+            <tr>
+              <th>
+                Expiration :
+              </th>
+              <th>
+                CCV
+              </th>
+            </tr>
+            <tr>
+              <td class="expiration">
+                12/12
+              </td>
+              <td class="cccode">
+                123
+              </td>
+            </tr>
+          </table>
+        </div>
+        <button class="btn align-self-center bankExpandButton">More</button>
+        <div class="cardOptions reduced">
         <button class="btn shadow">Dépot</button>
         <button class="btn shadow">Retrait</button>
         <form class="p-2 d-none">
@@ -52,43 +135,15 @@
             <input type="submit" name="validation" id="validation" value="Comfirmer">
           </label>
         </form>
+        </div>
       </article>
-    </div>
-    
-    <div class="d-lg-flex flex-column col-12 col-lg-8 gap-2  bg-success" id="bankOptionsContainer">
-      <section class="row flex-wrap flex-column mx-lg-4" id="bankStatsArtcl">
-          <h1 class="d-none d-lg-block text-white col-8 bg-dark">
-            Money Manager
-          </h1>
-        <section class="bg-primary text-center d-lg-none ">
-          <h2>Operation & Settings</h2>
-        </section>
-        <section class="bg-light text-center col-lg-8 h-75">
-          <h2>Statistics</h2>
-        </section>
-        <aside class="bg-danger text-center col-lg-4 h-100 ">
-          <h2>Articles</h2>
-            <ul>
-              <li><h3>Articles X</h3></li>
-              <li><h3>Articles X</h3></li>
-              <li><h3>Articles X</h3></li>
-              <li><h3>Articles X</h3></li>
-            </ul>
-        </aside>
-      </section>
-
-      <div class="bg-primary row mx-4" id="bankOpe">
-        <section class="bg-primary text-center d-none d-lg-block">
-          <h2>Operation & Settings</h2>
-        </section>
-      </div>
-
-    </div>
+    </section>
   </main>
   <footer>
     <h1>Footer</h1>
   </footer>
 
+  <script src="js/bankCard.js"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>

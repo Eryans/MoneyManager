@@ -87,10 +87,26 @@ textarea {
    Author's custom styles
    ========================================================================== */
 body{
-  background-color: #999;
+  background-color: rgb(102, 102, 102);
 }
-main{
-  height: 100vh;
+#blocker{
+  opacity: .8;
+  z-index: 1;
+}
+#securityInfo{
+  z-index:2;
+  width:300px;
+  top: 30vh;
+  left: calc(50vw - 150px);
+}
+.reduced{
+  height:0;
+  transform: scale(0);
+  opacity: 0;
+  overflow: hidden;
+}
+.cardOptions{
+  transition: transform 0.4s ease;
 }
 @media screen and (min-width: 1199.98px) {
   #bankAccount{
