@@ -92,6 +92,10 @@ body{
 th,td,table{
   border: 2px solid black;
 }
+article{
+  background-color: chartreuse;
+  margin: 1rem;
+}
 #blocker{
   opacity: .8;
   z-index: 1;
