@@ -89,10 +89,21 @@ textarea {
 body{
   background-color: rgb(102, 102, 102);
 }
-
+main{
+  min-height: 90vh;
+}
 article{
   background-color: chartreuse;
   margin: 1rem;
+}
+#statTable th{
+  background-color: #999;
+}
+#statTable td{
+  background-color:#b3d4fc;
+}
+#statTable td,#statTable th{
+  border:1px solid black;
 }
 #blocker{
   opacity: .8;
