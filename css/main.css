@@ -113,6 +113,9 @@ article{
 .cardOptions{
   transition: transform 0.4s ease;
 }
+.bankCard th{
+  font-weight: 200;
+}
 @media screen and (min-width: 1199.98px) {
   #bankAccount{
     height:100%;
