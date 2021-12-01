@@ -25,6 +25,15 @@
 
 <body>
 
+  <!--BLOCKER-->
+
+  <div id="blocker" class="bg-dark text-white position-fixed h-100 w-100"></div>
+  <section id="securityInfo" class="bg-light position-fixed container p-0">
+    <h2 id = "securityTitle" class="bg-primary col-12 p-2 m-0 ">chargement.</h2>
+    <p id = "securityText" class="m-2"> chargement.</p>
+    <button id="securityBtn"class="m-2">J'ai compris</button>
+  </section>
+
   <!--HEADER-->
 
   <header class="bg-dark text-white text-center d-lg-none">
@@ -42,16 +51,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.html">Acceuil</a>
+            <a class="nav-link active" aria-current="page" href="#">Acceuil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Statistique</a>
+            <a class="nav-link" href="stat.php">Statistique</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="blog.html">Blog</a>
-          </li>
+            <a class="nav-link" href="blog.php">Blog</a>
+          </li>          
           <li class="nav-item">
-            <a class="nav-link disabled" href="operation.html">Opération WIP</a>
+            <a class="nav-link disabled" href="operation.php">Opération WIP</a>
           </li>
         </ul>
       </div>
@@ -60,18 +69,21 @@
 
   <!--MAIN-->
 
-  <main class="container-fluid d-flex justify-content-center align-content-center flex-column flex-lg-wrap flex-lg-rowp-3 bg-info">
-    <table id="statTable">
+  <main class="container-fluid d-flex align-content-center flex-column flex-lg-wrap flex-lg-rowp-3 bg-info">
 
-    </table>
+    <section class="row justify-content-center" id="bankAccount">
+      <h2>Comptes :</h2>
+      <button onclick="createCard()" class="col-3">Testing CreateCard func</button>
+    </section>
   </main>
   <footer>
     <h1>Footer</h1>
   </footer>
 
+  <script src="js/bankCard.js"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
-  <script src="js/stat.js"></script>
+  <script src="js/blocker.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/ulg/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   
