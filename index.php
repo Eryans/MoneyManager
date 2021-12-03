@@ -10,10 +10,9 @@
 
     <section class="row justify-content-center" id="bankAccount">
       <h2>Comptes :</h2>
-      <button onclick="createCard()" class="col-3">Testing CreateCard func</button>
+      <?php require "components/indexMain.php"?>
     </section>
 
-    <script type="text/javascript" src="./js/bankCard.js"></script>
     <script type="text/javascript" src="./js/blocker.js"></script>
 
 <?php include "./layout/footer.php" ?>

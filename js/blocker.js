@@ -1,5 +1,4 @@
 
-
 // -------------------------- Blocker ----------------------------------- //
 
 document.querySelector("#securityBtn").addEventListener("click",function(){
