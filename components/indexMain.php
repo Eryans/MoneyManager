@@ -35,32 +35,37 @@ if (!empty($_POST["account"]) && isset($_POST["account"],$_POST["owner"])){
       ];
     
 }
-echo "<ul>";
+echo "<div>";
+echo "<h2>Comptes :</h2>";
+echo "<ul class='list-group'>";
         foreach($accounts as $content){
             $card = new Card(TRUE, $content["name"],$content["number"],$content["owner"],$content["amount"],$content["last_operation"]);
-            echo "<li>";
+            echo "<li >";
             $card -> show_card();
             echo "</li>";
         }
 echo "</ul>";
+echo "</div>";
 
 ?>
 
-<form action="" method="POST">
-    <label for="account"> Account : 
-      <input type="text" name="account" >
-    </label>
-    <br>
-    <label for="owner"> Owner :
-        <label for="prefix"> 
-            <select name="prefix">
-                <option value="Mr ">Mr</option>
-                <option value="Mlle ">Mlle</option>
-                <option value="Mme ">Mme</option>
-            </select>
-        </label>
-        <input type="text" name="owner" >
-    </label>  
-    <input type="submit" name="submit" value="submit">
-</form>
+<div class="col-12 col-md-6 bg-dark text-white p-5">
+  <form class="col-form-label"action="" method="POST">
+      <label for="account"> Account :
+        <input class="form-control" type="text" name="account" >
+      </label>
+      <br>
+      <label for="owner"> Owner :
+          <label for="prefix">
+              <select name="prefix">
+                  <option value="Mr ">Mr</option>
+                  <option value="Mlle ">Mlle</option>
+                  <option value="Mme ">Mme</option>
+              </select>
+          </label>
+          <input class="form-control" type="text" name="owner" >
+      </label>
+      <input class="btn btn-light" type="submit" name="submit" value="submit">
+  </form>
+</div>
 

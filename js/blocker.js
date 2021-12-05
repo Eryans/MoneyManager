@@ -12,14 +12,14 @@ content.innerHTML = `
     <button id="securityBtn"class="m-2">J'ai compris</button>
   </section> `;
 
-sessionStorage.setItem("hasBeenAccepted",false);
-let hasBeenAccepted = sessionStorage.getItem("hasBeenAccepted");
 
-if (true){
+sessionStorage.setItem("hasBeenAccepted","open");
+
+if (sessionStorage.getItem("hasBeenAccepted") === "open"){
 document.body.appendChild(blocker);
 document.body.appendChild(content);
 document.querySelector("#securityBtn").addEventListener("click",function(){
-    sessionStorage.setItem("hasBeenAccepted",true);
+    sessionStorage.setItem("hasBeenAccepted","closed");
     document.querySelector("#blocker").remove();
     document.querySelector("#securityInfo").remove();
 })

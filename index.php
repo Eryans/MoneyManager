@@ -2,8 +2,7 @@
 
 <?php include "./layout/header.php" ?>
 
-    <section class="row justify-content-center" id="bankAccount">
-      <h2>Comptes :</h2>
+    <section class="justify-content-center d-flex flex-column flex-md-row" id="bankAccount">
       <?php require "components/indexMain.php"?>
     </section>
 
