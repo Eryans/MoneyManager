@@ -9,7 +9,7 @@ content.innerHTML = `
   <section id="securityInfo" class="bg-light position-fixed container p-0">
     <h2 id = "securityTitle" class="bg-primary col-12 p-2 m-0 ">chargement.</h2>
     <p id = "securityText" class="m-2"> chargement.</p>
-    <button id="securityBtn"class="m-2">J'ai compris</button>
+    <button id="securityBtn"class="btn btn-primary text-white m-2">J'ai compris</button>
   </section> `;
 
 
