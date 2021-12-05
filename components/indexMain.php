@@ -40,7 +40,7 @@ echo "<h2>Comptes :</h2>";
 echo "<ul class='list-group'>";
         foreach($accounts as $content){
             $card = new Card(TRUE, $content["name"],$content["number"],$content["owner"],$content["amount"],$content["last_operation"]);
-            echo "<li >";
+            echo "<li style='list-style-type: none;'>";
             $card -> show_card();
             echo "</li>";
         }

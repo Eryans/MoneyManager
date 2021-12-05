@@ -18,7 +18,7 @@ class Card{
     }
     function show_card(){
         echo 
-        "<article>
+        "<article class='p-3 rounded'>
             <h2>$this->name</h2>
             <p>$this->amount €</p>
             <div> <strong>$this->owner</strong> $this->cardNum </div>";
