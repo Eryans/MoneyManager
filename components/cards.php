@@ -7,9 +7,11 @@ class Card{
     private int $amount;
     private bool $isNotDetail;
     private string $lastOp;
+    private int $id;
 
-    public function __construct(bool $isNotDetail=false ,string $name, string $cardNum, string $owner, int $amount,string $last_op,string $date_creation)
+    public function __construct(bool $isNotDetail=false,int $id ,string $name, string $cardNum, string $owner, int $amount,string $last_op,string $date_creation)
     {
+        $this -> id = $id;
         $this -> name = $name;
         $this -> cardNum = $cardNum;
         $this -> owner = $owner;
@@ -27,7 +29,7 @@ class Card{
             <p>$this->amount €</p>
             <div> <strong>$this->owner</strong> $this->cardNum </div>";
             if ($this->isNotDetail){
-            echo "<a class='btn btn-light' href='details.php?name=$this->name&number=$this->cardNum&owner=$this->owner&amount=$this->amount&lastOp=$this->lastOp&date_creation=$this->date_creation'> Details </a>";
+            echo "<a class='btn btn-light' href='details.php?id=$this->id'> Details </a>";
             } else {
                 echo "<p><strong>Date création du compte : </strong>$this->date_creation</p>";
                 echo "<p><strong>Dernière opération : </strong>$this->lastOp</p>";

@@ -69,13 +69,13 @@ if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
 
         /*-------------------- REGISETRING OPERATION -------------------------- */
         $accountID = $currentAccount["id"];
-        $operationDescpt = $_POST["op_description"];
+        $operationDescpt = htmlspecialchars($_POST["op_description"]);
         $operationDate = date("Y-m-d");
-        $operationType = $_POST["operation_type"];
-        $operationAmount = $amount;
+        $operationType = htmlspecialchars($_POST["operation_type"]);
+        $operationAmount = htmlspecialchars($amount);
         $operationStatus = "Terminé";
         $operationClientID = $currentAccount["clientID"];
-        $operationReceiver = $_POST["receiving_account"];
+        $operationReceiver = htmlspecialchars($_POST["receiving_account"]);
         $sql = "INSERT INTO operation 
         VALUES(DEFAULT,'$accountID','$operationDescpt','$operationDate','$operationType','$operationAmount','$operationStatus','$operationClientID','$operationReceiver')";
         $stmt = $db->prepare($sql);
