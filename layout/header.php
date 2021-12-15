@@ -28,6 +28,24 @@
 
   <header class="bg-dark text-white text-center ">
     <h1 class="m-0 p-2">Money Manager</h1>
+    <?php
+      require "./components/header_log_in_out.php";
+    ?>
+    <span class="d-flex gap-4 justify-content-end">
+      <?php echo $name;
+      echo $log_in_out ? "<button onclick='logOut()'> Log out </button>" : "<button onclick='signIn()'> Sign in </button>";
+      ?>
+    </span>
   </header>
   <?php include "./layout/navbar.php" ?>
+  
+  <script>
+    function logOut(){
+      document.location.href= '<?php echo "./components/logout.php" ;?>';
+    }
+    function signIn(){
+      document.location.href='<?php echo "./login.php";?>';
+    }
+  </script>
+
   <main class="container-fluid d-flex justify-content-center align-content-center flex-column flex-lg-wrap flex-lg-rowp-3 bg-info">
