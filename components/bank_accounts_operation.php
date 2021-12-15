@@ -16,9 +16,11 @@ if (isset($_REQUEST["bk_acc_submit"])) {
         $db->exec($sqlAdd);
         unset($_REQUEST);
         echo "Opération réussi !";
+        
     } catch (PDOException $error) {
         echo "something went wrong : " . $error;
     }
+    $db = null;
 }
 
 
@@ -27,17 +29,43 @@ function r4()
     return rand(1000, 9999);
 }
 /*--------------------ACCOUNTS OPERATION HANDLING-------------------------- */
+if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
+    var_dump(intval($_POST["acc_selector"]));
 
-if (isset($_REQUEST["operation_submit"])){
-    switch($_POST["operation_type"]){
-        case "payment":
-            echo "Test";
-        break;
-        case "withdrawal":
-            echo "Test2";
-        break;
-        case "deposit":
-            echo "Tes3";
-        break;
+    if (isset($_POST["acc_selector"])){
+        $sql = "SELECT solde FROM compte WHERE id = :accID";
+        $stmt = $db->prepare($sql);
+        $selectedAcc = intval($_POST["acc_selector"]);
+        $stmt->execute(["accID" => $selectedAcc]);
+        $currentBlc = $stmt->fetch();
+        $amount = $_POST["amount"];
+        var_dump($amount);
+        
+        switch($_POST["operation_type"]){
+            case "payment":
+                if ($currentBlc["solde"] > 0 + $amount || $amount > 0){
+                $sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
+                echo "Opération effectuée !";
+            } else {
+                echo "Pas assez de fond pour continuer l'opération !";
+            }
+            break;
+            case "withdrawal":
+                if ($currentBlc["solde"] > 0 + $amount || $amount > 0){
+                    $sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
+                    echo "Opération effectuée !";
+                } else {
+                    echo "Pas assez de fond pour continuer l'opération !";
+                }
+            break;
+            case "deposit":
+                $sql = "UPDATE compte SET solde = solde + '$amount' WHERE id=:accID";
+                echo "Opération effectuée !";
+            break;
+        }
+        $stmt = $db->prepare($sql);
+        $stmt->execute(["accID" => $_POST["acc_selector"]]);
+        $db = null;
+        $stmt = null;
     }
 }

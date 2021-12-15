@@ -29,4 +29,6 @@
 	function checkpswrd($pswrd,$pswrdHash){
 		return $pswrd == trim($pswrdHash) ? true : false; 
 	}
+	$db = null;
+	$stmt = null;
 ?>

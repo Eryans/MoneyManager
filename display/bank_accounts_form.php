@@ -34,16 +34,18 @@
 	<h2>Opération</h2>
   <form method="POST">
     <label for="operation_type">
-		<select id="acc_selector">
+		<select id="acc_selector" name="acc_selector">
 			<?php 
 				require "./model/model.php";
-				$sql = "SELECT nom FROM compte WHERE clientID = :id";
+				$sql = "SELECT nom,id FROM compte WHERE clientID = :id";
 				$stmt = $db->prepare($sql);
 				$stmt->execute(["id" => $_SESSION["userID"]]);
 				$accounts = $stmt->fetchAll();
 				foreach ($accounts as $act){
-					echo "<option value=".$act["nom"].">".$act["nom"]."</option>";
+					echo "<option value=".$act['id'].">".$act['nom']."</option>";
 				}
+        $db = null;
+        $stmt = null;
 			?>
 		</select>
       <select id="selector" name="operation_type">
@@ -53,7 +55,7 @@
       </select>
 	</label>
 	<label for="amount">
-        <input type="text" name="amount">
+        <input type="number" name="amount" required>
 	</label>
 	<label id="rcv_acc_lb"for="receiving_account">
         <input id="rcv_acc" type="text" name="receiving_account">
@@ -62,7 +64,7 @@
   </form>
 </div>
 
-<!---------------------------- JAVASCRIPT -------------------------------->
+<!---------------------------------- JAVASCRIPT ---------------------------------->
 <script>
 	// Display other input if needed
 	let rcv_acc = document.getElementById("rcv_acc");

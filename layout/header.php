@@ -40,6 +40,7 @@
   <?php include "./layout/navbar.php" ?>
   
   <script>
+    // ------------------------------------ SIGN IN/ LOG OUT -------------------------------------------
     function logOut(){
       document.location.href= '<?php echo "./components/logout.php" ;?>';
     }
