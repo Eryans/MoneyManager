@@ -34,5 +34,5 @@ for ($i = 0; $i < $stmt->rowCount(); $i++) {
 echo "</ul>";
 echo "</div>";
 $db = null;
-$stmt = null;
+$stmt = null;	
 

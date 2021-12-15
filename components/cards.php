@@ -19,9 +19,11 @@ class Card{
         $this -> date_creation = $date_creation;
     }
     function show_card(){
+        echo "<article class='p-3 rounded ";
+        echo $this->amount < 0 ? 'bg-danger text-white': '';
+        echo"'>";
         echo 
-        "<article class='p-3 rounded'>
-            <h2>$this->name</h2>
+            "<h2>$this->name</h2>
             <p>$this->amount €</p>
             <div> <strong>$this->owner</strong> $this->cardNum </div>";
             if ($this->isNotDetail){
@@ -30,8 +32,7 @@ class Card{
                 echo "<p><strong>Date création du compte : </strong>$this->date_creation</p>";
                 echo "<p><strong>Dernière opération : </strong>$this->lastOp</p>";
             } 
-        echo 
-        "</article>";
+        echo "</article>";
     }
 }
 ?>

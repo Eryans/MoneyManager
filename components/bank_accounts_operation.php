@@ -40,19 +40,20 @@ if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
         $currentBlc = $stmt->fetch();
         $amount = $_POST["amount"];
         var_dump($amount);
+        $widthdraw_op_sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
         
         switch($_POST["operation_type"]){
             case "payment":
-                if ($currentBlc["solde"] > 0 + $amount || $amount > 0){
-                $sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
+                if ($currentBlc["solde"] > 0 + $amount && $amount > 0){
+                $sql = $widthdraw_op_sql;
                 echo "Opération effectuée !";
             } else {
                 echo "Pas assez de fond pour continuer l'opération !";
             }
             break;
             case "withdrawal":
-                if ($currentBlc["solde"] > 0 + $amount || $amount > 0){
-                    $sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
+                if ($currentBlc["solde"] > 0 + $amount && $amount > 0){
+                    $sql = $widthdraw_op_sql;
                     echo "Opération effectuée !";
                 } else {
                     echo "Pas assez de fond pour continuer l'opération !";
@@ -67,5 +68,6 @@ if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
         $stmt->execute(["accID" => $_POST["acc_selector"]]);
         $db = null;
         $stmt = null;
+        header("Location:./components/acceuil_header_prg.php");
     }
 }
