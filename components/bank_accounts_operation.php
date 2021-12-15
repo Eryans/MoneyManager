@@ -33,18 +33,18 @@ if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
     var_dump(intval($_POST["acc_selector"]));
 
     if (isset($_POST["acc_selector"])){
-        $sql = "SELECT solde FROM compte WHERE id = :accID";
+        $sql = "SELECT * FROM compte WHERE id = :accID";
         $stmt = $db->prepare($sql);
         $selectedAcc = intval($_POST["acc_selector"]);
         $stmt->execute(["accID" => $selectedAcc]);
-        $currentBlc = $stmt->fetch();
+        $currentAccount = $stmt->fetch();
         $amount = $_POST["amount"];
         var_dump($amount);
         $widthdraw_op_sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
         
         switch($_POST["operation_type"]){
             case "payment":
-                if ($currentBlc["solde"] > 0 + $amount && $amount > 0){
+                if ($currentAccount["solde"] > 0 + $amount && $amount > 0){
                 $sql = $widthdraw_op_sql;
                 echo "Opération effectuée !";
             } else {
@@ -52,7 +52,7 @@ if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
             }
             break;
             case "withdrawal":
-                if ($currentBlc["solde"] > 0 + $amount && $amount > 0){
+                if ($currentAccount["solde"] > 0 + $amount && $amount > 0){
                     $sql = $widthdraw_op_sql;
                     echo "Opération effectuée !";
                 } else {
@@ -66,6 +66,21 @@ if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
         }
         $stmt = $db->prepare($sql);
         $stmt->execute(["accID" => $_POST["acc_selector"]]);
+
+        /*-------------------- REGISETRING OPERATION -------------------------- */
+        $accountID = $currentAccount["id"];
+        $operationDescpt = $_POST["op_description"];
+        $operationDate = date("Y-m-d");
+        $operationType = $_POST["operation_type"];
+        $operationAmount = $amount;
+        $operationStatus = "Terminé";
+        $operationClientID = $currentAccount["clientID"];
+        $operationReceiver = $_POST["receiving_account"];
+        $sql = "INSERT INTO operation 
+        VALUES(DEFAULT,'$accountID','$operationDescpt','$operationDate','$operationType','$operationAmount','$operationStatus','$operationClientID','$operationReceiver')";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        /*-------------------- CLOSE CONNEXION -------------------------------- */
         $db = null;
         $stmt = null;
         header("Location:./components/acceuil_header_prg.php");

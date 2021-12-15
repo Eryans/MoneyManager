@@ -1,80 +1,88 @@
+<?php if (isset($_GET["message"])) {
+	echo '<p>' . $_GET["message"] . '</p>';
+} ?>
 <!---------------------------------- Account Creation Form  ---------------------------------->
 <div class="col-12 col-md-6 bg-dark text-white p-5">
 	<h2>Création de compte</h2>
-  <form class="col-form-label" method="POST">
-    <label for="account"> Account :
-      <input class="form-control" type="text" name="account" required >
-    </label>
-    <br>
-    <label for="owner"> Owner :
-      <label for="prefix">
-        <select name="prefix">
-          <option value="Mr ">Mr</option>
-          <option value="Mlle ">Mlle</option>
-          <option value="Mme ">Mme</option>
-        </select>
-      </label>
-      <input class="form-control" type="text" name="owner" required >
-    </label>
-    <br>
-    <label for="account_type">
-        <select name="account_type">
-          <option value="card">Carte de crédit</option>
-          <option value="card">Carte de paiement</option>
-          <option value="saving">PEL</option>
-          <option value="saving">Livret A</option>
-        </select>
-    </label>
-    <br>
-    <input class="btn btn-light" type="submit" name="bk_acc_submit" value="submit">
-  </form>
+	<form class="col-form-label" method="POST">
+		<label for="account"> Account :
+			<input class="form-control" type="text" name="account" required>
+		</label>
+		<br>
+		<label for="owner"> Owner :
+			<label for="prefix">
+				<select name="prefix">
+					<option value="Mr ">Mr</option>
+					<option value="Mlle ">Mlle</option>
+					<option value="Mme ">Mme</option>
+				</select>
+			</label>
+			<input class="form-control" type="text" name="owner" required>
+		</label>
+		<br>
+		<label for="account_type">
+			<select name="account_type">
+				<option value="card">Carte de crédit</option>
+				<option value="card">Carte de paiement</option>
+				<option value="saving">PEL</option>
+				<option value="saving">Livret A</option>
+			</select>
+		</label>
+		<br>
+		<input class="btn btn-light" type="submit" name="bk_acc_submit" value="submit">
+	</form>
 </div>
 <!---------------------------------- Account Operation Form  ---------------------------------->
 <div class="col-12 col-md-6 bg-dark text-white p-5">
 	<h2>Opération</h2>
-  <form method="POST">
-    <label for="operation_type">
-		<select id="acc_selector" name="acc_selector">
-			<?php 
+	<form method="POST">
+		<label for="operation_type">
+			<select id="acc_selector" name="acc_selector">
+				<?php
 				require "./model/model.php";
 				$sql = "SELECT nom,id FROM compte WHERE clientID = :id";
 				$stmt = $db->prepare($sql);
 				$stmt->execute(["id" => $_SESSION["userID"]]);
 				$accounts = $stmt->fetchAll();
-				foreach ($accounts as $act){
-					echo "<option value=".$act['id'].">".$act['nom']."</option>";
+				foreach ($accounts as $act) {
+					echo "<option value=" . $act['id'] . ">" . $act['nom'] . "</option>";
 				}
-        $db = null;
-        $stmt = null;
-			?>
-		</select>
-      <select id="selector" name="operation_type">
-        <option value="payment">Virement</option>
-        <option value="withdrawal">Retrait</option>
-        <option value="deposit">Dépôt</option>
-      </select>
-	</label>
-	<label for="amount">
-        <input type="number" name="amount" required>
-	</label>
-	<label id="rcv_acc_lb"for="receiving_account">
-        <input id="rcv_acc" type="text" name="receiving_account">
-	</label>
-	<input type="submit" name="operation_submit" value="Send">
-  </form>
+				$db = null;
+				$stmt = null;
+				?>
+			</select>
+			<select id="selector" name="operation_type">
+				<option value="payment">Virement</option>
+				<option value="withdrawal">Retrait</option>
+				<option value="deposit">Dépôt</option>
+			</select>
+		</label>
+		<label for="amount">
+			Montant :
+			<input type="number" name="amount" required>
+		</label>
+		<label id="op_description" for="op_description">
+			Motif:
+			<input id="op_desc" type="text" name="op_description" required>
+		</label>
+		<label id="rcv_acc_lb" for="receiving_account">
+			Compte Receveur :
+			<input id="rcv_acc" type="text" name="receiving_account" required>
+		</label>
+		<input type="submit" name="operation_submit" value="Send">
+	</form>
 </div>
 
 <!---------------------------------- JAVASCRIPT ---------------------------------->
 <script>
 	// Display other input if needed
-	let rcv_acc = document.getElementById("rcv_acc");
+	let rcv_acc = document.getElementById("rcv_acc_lb");
 	let selector = document.getElementById("selector");
-	selector.addEventListener("change",() => {
-		if (selector.value === "deposit" || selector.value === "withdrawal"){
+	selector.addEventListener("change", () => {
+		if (selector.value === "deposit" || selector.value === "withdrawal") {
 			rcv_acc.style.display = "none";
 		} else {
 			rcv_acc.style.display = "inline-block";
 		}
 	});
-	
 </script>
