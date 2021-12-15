@@ -10,6 +10,7 @@ if (!empty($_GET) && isset($_GET["name"],$_GET["number"],$_GET["owner"],$_GET["a
     $owner = htmlspecialchars($_GET["owner"]);
     $amount = htmlspecialchars($_GET["amount"]);
     $lastOp = htmlspecialchars($_GET["lastOp"]);
+    $date_creat = htmlspecialchars($_GET["date_creation"]);
 } else {
     $error = "COMPTE BANCAIRE INEXISTANT";
 }
@@ -19,7 +20,7 @@ if(isset($error)) {
 }
 else {
 
-    $card = new Card(FALSE,$name,$number,$owner,$amount,$lastOp);
+    $card = new Card(FALSE,$name,$number,$owner,$amount,$lastOp,$date_creat);
     $card->show_card();
     
 }

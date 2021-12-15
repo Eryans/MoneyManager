@@ -1,14 +1,8 @@
 <?php include "./layout/header.php" ?>
 
-    <form>
-      <label for="operationToDo">
-        <select name="operationToDo" id ="operationToDo">
-          <option>Virement</option>
-          <option>Dépot</option>
-          <option>Retrait</option>
-        </select>
-      </label>
+<?php 
+	require "./components/bank_accounts_operation.php";
+	require "./display/bank_accounts_form.php";
+?>
 
-    </form>
-
-    <?php include "./layout/footer.php"  ?>
+<?php include "./layout/footer.php"  ?>

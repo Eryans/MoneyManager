@@ -14,6 +14,9 @@
           <li class="nav-item">
             <a class="nav-link" href="blog.php">Blog</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="operation.php">Opération</a>
+          </li>
         </ul>
       </div>
     </div>
