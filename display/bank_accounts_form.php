@@ -63,11 +63,11 @@
 		</label>
 		<label id="op_description" for="op_description">
 			Motif:
-			<input id="op_desc" type="text" name="op_description" required>
+			<input id="op_desc" type="text" name="op_description">
 		</label>
 		<label id="rcv_acc_lb" for="receiving_account">
 			Compte Receveur :
-			<input id="rcv_acc" type="text" name="receiving_account" required>
+			<input id="rcv_acc" type="text" name="receiving_account">
 		</label>
 		<input type="submit" name="operation_submit" value="Send">
 	</form>
@@ -76,13 +76,16 @@
 <!---------------------------------- JAVASCRIPT ---------------------------------->
 <script>
 	// Display other input if needed
+	let rcv_acc_lb = document.getElementById("rcv_acc_lb");
 	let rcv_acc = document.getElementById("rcv_acc_lb");
 	let selector = document.getElementById("selector");
 	selector.addEventListener("change", () => {
-		if (selector.value === "deposit" || selector.value === "withdrawal") {
-			rcv_acc.style.display = "none";
+		if (selector.value === "payment") {
+			rcv_acc_lb.style.display = "inline-block";
+			rcv_acc.setAttribute("required","");
 		} else {
-			rcv_acc.style.display = "inline-block";
+			rcv_acc.removeAttribute("required");
+			rcv_acc_lb.style.display = "none";
 		}
 	});
 </script>

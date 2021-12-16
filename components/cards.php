@@ -27,7 +27,11 @@ class Card{
         echo 
             "<h2>$this->name</h2>
             <p>$this->amount €</p>
-            <div> <strong>$this->owner</strong> $this->cardNum </div>";
+            <div> 
+                <strong>$this->owner</strong>
+                <br>
+                $this->cardNum 
+            </div>";
             if ($this->isNotDetail){
             echo "<a class='btn btn-light' href='details.php?id=$this->id'> Details </a>";
             } else {
