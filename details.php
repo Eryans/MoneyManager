@@ -1,5 +1,7 @@
 <?php
+/*--------------------------------TODO : BREAK FILE IN MULTIPLE COMPONENT ------------------------------------------ */
 if (!isset($_SESSION)) {
+    session_set_cookie_params(0);
     session_start();
 }
 ?>
@@ -22,29 +24,56 @@ if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
         echo "Something went wront : $error";
     }
     /* --------OPERATION INFO SQL--------- */
-    try {
-        $opSql = "SELECT * FROM operation as op INNER JOIN compte as c ON op.compte_ID = c.id ORDER BY op.id DESC";
-        $opStmt = $db->prepare($opSql);
-        $opStmt->execute();
-        $operations = $opStmt->fetchAll();
-        // SQL request must be assigned to variable in order to put them in a string. 
-        // I don't know why it will cause an error if i just write them directly.
-        $opType = $operations[0]['type'];
-        $opDate = $operations[0]['date_creation'];
-        $opDescrpt = $operations[0]['description'];
-        $opAmount = $operations[0]['amount'];
-        $opStatus = $operations[0]['status'];
-        $opPaymentRcv = $operations[0]['payment_receiver'];
-        // Since we receive the operations in descending order index 0 is always the last one
-        $last_operation = "| $opDate | $opType de $opAmount € $opDescrpt $opPaymentRcv | Statut : $opStatus";
-        // TO DO : Make some operation before testing to fill operation table
-    } catch (PDOException $error) {
-        echo "Something went wront : $error";
-    }
+    require_once "components/get_operations.php";
+    $last_operation = getLstOperation($_GET["id"]);
 
     if ($stmt->rowCount() > 0) {
+        // Account info
         $card = new Card(FALSE, $account["id"], $account["cNom"], $account["numero"], $account["nom"] . " " . $account["prenom"], $account["solde"], $last_operation, $account["date_creation_compte"]);
         $card->show_card();
+        // Operation list ( trying another syntax instead of using echo everywhere btw )
+        if ($opStmt->rowCount() > 0) {
+?>
+            <div class="overflow-auto d-flex justify-content-center">
+                <table id="operation_list">
+                    <thead>
+                        <tr>
+                            <th colspan="12">Liste des opérations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5"><strong>Date</strong></td>
+                            <td><strong>Description</strong></td>
+                            <td><strong>Montant</strong></td>
+                            <td><strong>Compte Emetteur/Receveur</strong></td>
+                        </tr>
+                        <?php
+                        for ($i = 0; $i < $opStmt->rowCount(); $i++) {
+                            $opType = $operations[$i]['type'];
+                            $opDate = $operations[$i]['date_creation'];
+                            $opDescrpt = $operations[$i]['description'];
+                            $opAmount = $operations[$i]['amount'];
+                            $opStatus = $operations[$i]['status'];
+                            $opPaymentRcv = $operations[$i]['payment_receiver'];
+                        ?>
+                            <tr>
+                                <?php
+                                echo "
+                            <td colspan='5'>$opDate</td>
+                            <td>$opType $opDescrpt</td>
+                            <td>$opAmount</td>
+                            <td>$opPaymentRcv</td>";
+                                ?>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+<?php
+        }
     } else {
         echo "<h2>ERROR TRYING TO ACCESS ACCOUNT</h2>";
     }

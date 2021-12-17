@@ -93,8 +93,8 @@ main{
   min-height: 90vh;
 }
 article{
-  background-color: chartreuse;
-  margin: 1rem;
+  background-color: rgb(111, 0, 255);
+  color:white;
 }
 #statTable th{
   background-color: #999;
@@ -126,6 +126,19 @@ article{
 }
 .bankCard th{
   font-weight: 200;
+}
+.card_container{
+  background-color: rgb(72, 32, 124);
+  color:white;
+  min-width: fit-content;
+}
+#operation_list{
+  background-color: rgb(62, 62, 70);
+  color:white;
+}
+#operation_list, #operation_list thead, #operation_list tbody, #operation_list td {
+  border: 2px solid black;
+  text-align: center;
 }
 @media screen and (min-width: 1199.98px) {
   #bankAccount{

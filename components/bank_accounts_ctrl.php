@@ -16,23 +16,31 @@ $client = $stmt->fetchAll();
 $fName = $client[0]["prenom"];
 $lName = $client[0]["nom"];
 
-echo
-"<h2>
-	Bonjour <br>" . $fName . " " . $lName . "
-</h2>";
 
 echo
-"<div>
-	<h2>Comptes :</h2>
-<ul class='list-group'>";
+"
+	<div class='container-fluid'>
+		<h2>
+			Bonjour <br>" . $fName . " " . $lName . "
+		</h2>";
+echo
+"		<section>
+			<h2>Comptes :</h2>
+			<ul class='list-group d-flex flex-row flex-wrap gap-3'>";
 for ($i = 0; $i < $stmt->rowCount(); $i++) {
 	echo "<li style='list-style-type: none;'>";
-	$card = new Card(true,$client[$i]["cID"],$client[$i]["cNom"], $client[$i]["numero"], $client[$i]["prenom"] . " " . $client[$i]["nom"], $client[$i]["solde"], "lorem ipsum", $client[$i]["date_creation_compte"]);
+
+	/* --------LAST OPERATION SQL--------- */
+    require_once "get_operations.php";
+    $last_operation = getLstOperation($client[$i]["cID"]);
+
+	$card = new Card(true, $client[$i]["cID"], $client[$i]["cNom"], $client[$i]["numero"],
+	$client[$i]["prenom"] . " " . $client[$i]["nom"], $client[$i]["solde"], $last_operation, $client[$i]["date_creation_compte"]);
 	$card->show_card();
 	echo "</li>";
 }
-echo "</ul>";
-echo "</div>";
+echo "		</ul>
+		</section>
+	</div>";
 $db = null;
-$stmt = null;	
-
+$stmt = null;
