@@ -29,7 +29,7 @@ if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
 
     if ($stmt->rowCount() > 0) {
         // Account info
-        $card = new Card(FALSE, $account["id"], $account["cNom"], $account["numero"], $account["nom"] . " " . $account["prenom"], $account["solde"], $last_operation, $account["date_creation_compte"]);
+        $card = new Card(FALSE, $account["id"], $account["cNom"], $account["numero"], $account["owner"], $account["solde"], $last_operation, $account["date_creation_compte"]);
         $card->show_card();
         // Operation list ( trying another syntax instead of using echo everywhere btw )
         if ($opStmt->rowCount() > 0) {

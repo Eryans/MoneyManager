@@ -35,7 +35,7 @@ for ($i = 0; $i < $stmt->rowCount(); $i++) {
     $last_operation = getLstOperation($client[$i]["cID"]);
 
 	$card = new Card(true, $client[$i]["cID"], $client[$i]["cNom"], $client[$i]["numero"],
-	$client[$i]["prenom"] . " " . $client[$i]["nom"], $client[$i]["solde"], $last_operation, $client[$i]["date_creation_compte"]);
+	$client[$i]["owner"], $client[$i]["solde"], $last_operation, $client[$i]["date_creation_compte"]);
 	$card->show_card();
 	echo "</li>";
 }

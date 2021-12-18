@@ -11,8 +11,8 @@ if (isset($_REQUEST["bk_acc_submit"])) {
     $acc_date = date("Y-m-d");
 
     try {
-        $sqlAdd = " INSERT INTO compte (nom,numero,date_creation_compte,numero_carte,solde,clientID,acc_type)
-                    VALUES ('$acc_name','$acc_num','$acc_date','$acc_card_num',0,'$acc_ID','$acc_type') ";
+        $sqlAdd = " INSERT INTO compte (nom,numero,owner,date_creation_compte,numero_carte,solde,clientID,acc_type)
+                    VALUES ('$acc_name','$acc_num','$acc_owner','$acc_date','$acc_card_num',0,'$acc_ID','$acc_type') ";
         $db->exec($sqlAdd);
         unset($_REQUEST);
         echo "Opération réussi !";
