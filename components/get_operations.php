@@ -4,7 +4,7 @@
 
 if (isset($_GET["id"])) {
     try {
-        require "model/model.php";
+        require "model/database_connexion.php";
         $opSql = "SELECT * FROM operation as op WHERE op.compte_ID = :id ORDER BY id DESC";
         $opStmt = $db->prepare($opSql);
         $opStmt->execute(["id" => $_GET["id"]]);
@@ -18,7 +18,7 @@ if (isset($_GET["id"])) {
 function getLstOperation($id)
 {
     try {
-        require "model/model.php";
+        require "model/database_connexion.php";
         $opSql = "SELECT * FROM operation as op WHERE op.compte_ID = :id ORDER BY id DESC";
         $opStmt = $db->prepare($opSql);
         $opStmt->execute(["id" => $id]);

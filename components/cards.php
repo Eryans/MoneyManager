@@ -1,14 +1,14 @@
 <?php
 class Card
 {
-    private string $name;
-    private string $cardNum;
-    private string $owner;
-    private string $date_creation;
-    private int $amount;
-    private bool $isNotDetail;
-    private string $lastOp;
-    private int $id;
+    protected string $_name;
+    protected string $_cardNum;
+    protected string $_owner;
+    protected string $_date_creation;
+    protected int $_amount;
+    protected bool $_isNotDetail;
+    protected string $_lastOp;
+    protected int $_id;
 
     public function __construct(bool $isNotDetail = false, int $id, string $name, string $cardNum, string $owner, int $amount, string $last_op, string $date_creation)
     {
@@ -30,7 +30,7 @@ class Card
             <button id='deleteBtn' class='btn btn-close align-self-end btn-danger' onclick="showAlert()" value=<?php echo $this->_amount; ?>> </button>
             <p id="alertMsg" class="text-danger d-none"> ATTENTION ! Supprimer un compte est une action définitive êtes vous sûr ?</p>
 <?php
-            echo "<a id='deleteLink' class='btn btn-danger btn-close align-self-end d-none' href='components/delete_account_prg.php?id=$this->_id'> </a>";
+            echo "<a id='deleteLink' class='btn btn-danger btn-close align-self-end d-none' href='model/delete_account_prg.php?id=$this->_id'> </a>";
         }
         echo
         "<h2>$this->_name</h2>

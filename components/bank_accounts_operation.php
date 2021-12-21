@@ -1,5 +1,5 @@
 <?php
-
+require "./model/database_connexion.php";
 /*--------------------ACCOUNTS OPERATION HANDLING-------------------------- */
 if (isset($_REQUEST["operation_submit"],$_POST["amount"])){
 

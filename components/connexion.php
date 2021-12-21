@@ -10,7 +10,7 @@
 		}
 
 		if (!empty($usermail)){
-			require "./model/model.php";
+			require "./model/database_connexion.php";
 			$sql = "SELECT mail,passwordHash,id FROM client WHERE mail = :usermail";
 			$stmt = $db->prepare($sql);
 			$stmt->execute(["usermail" => $usermail]);

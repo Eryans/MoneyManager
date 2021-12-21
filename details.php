@@ -11,7 +11,7 @@ if (!isset($_SESSION)) {
 
 if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
 
-    require "model/model.php";
+    require "model/database_connexion.php";
     require "components/cards.php";
 
     /* --------GLOBAL INFO SQL--------- */

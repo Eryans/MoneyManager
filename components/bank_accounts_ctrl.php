@@ -1,6 +1,5 @@
 <?php
 require "components/cards.php";
-require "model/model.php";
 
 if (!isset($_SESSION)) {
 	session_start();
@@ -8,10 +7,7 @@ if (!isset($_SESSION)) {
 
 /*--------------------ACCOUNTS DISPLAY-------------------------- */
 
-$sql = "SELECT *,cp.id as cID, cp.nom as cNom FROM compte as cp INNER JOIN client as cl ON cp.clientID = cl.id WHERE clientID = :id";
-$stmt = $db->prepare($sql);
-$stmt->execute(["id" => $_SESSION["userID"]]);
-$client = $stmt->fetchAll();
+require "model/get_accounts.php";
 
 $fName = $client[0]["prenom"];
 $lName = $client[0]["nom"];
