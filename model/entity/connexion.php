@@ -5,7 +5,7 @@
 
 	if(isset($_POST["login_submit"])){
 		if (!empty($_POST["usermail"]) && !empty($_POST["password"])){
-			$usermail = $_POST["usermail"];
+			$usermail = filter_var($_POST["usermail"],FILTER_VALIDATE_EMAIL);
 			$userpswrd = $_POST["password"];
 		}
 

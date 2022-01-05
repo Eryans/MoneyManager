@@ -12,7 +12,7 @@ if (!isset($_SESSION)) {
 if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
 
     require "model/database_connexion.php";
-    require "components/cards.php";
+    require "display/cards.php";
 
     /* --------GLOBAL INFO SQL--------- */
     try {
@@ -24,15 +24,17 @@ if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
         echo "Something went wront : $error";
     }
     /* --------OPERATION INFO SQL--------- */
-    require_once "components/get_operations.php";
-    $last_operation = getLstOperation($_GET["id"]);
+    require_once "model/entity/operation.class.php";
+    $operationsMng = new Operation();
+    $last_operation = $operationsMng->getLastOperation($_GET["id"]);
+    $operations = $operationsMng->getOperations();
 
     if ($stmt->rowCount() > 0) {
         // Account info
         $card = new Card(FALSE, htmlspecialchars($_GET["id"]), $account["cNom"], $account["numero"], $account["owner"], $account["solde"], $last_operation, $account["date_creation_compte"]);
         $card->show_card();
         // Operation list ( trying another syntax instead of using echo everywhere btw )
-        if ($opStmt->rowCount() > 0) {
+        if (count($operations) > 0) {
 ?>
             <div class="overflow-auto d-flex justify-content-center">
                 <table id="operation_list">
@@ -49,7 +51,7 @@ if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
                             <td><strong>Compte Emetteur/Receveur</strong></td>
                         </tr>
                         <?php
-                        for ($i = 0; $i < $opStmt->rowCount(); $i++) {
+                        for ($i = 0; $i < count($operations); $i++) {
                             $opType = $operations[$i]['type'];
                             $opDate = $operations[$i]['date_creation'];
                             $opDescrpt = $operations[$i]['description'];
