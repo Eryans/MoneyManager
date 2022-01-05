@@ -41,7 +41,7 @@
 	<script>
 		// ------------------------------------ SIGN IN/ LOG OUT -------------------------------------------
 		function logOut() {
-			document.location.href = '<?php echo "/model/entity/logout.php"; ?>';
+			document.location.href = '<?php echo "./model/entity/logout.php"; ?>';
 		}
 
 		function signIn() {

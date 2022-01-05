@@ -33,7 +33,7 @@ class Operation extends Dbh
                     $stmt = $db->prepare($sql);
                     $stmt->execute(["accID" => $_POST["acc_selector"]]);
                     $db->commit();
-                    header("Location:/operation_prg.php");
+                    header("Location:./operation_prg.php");
                 } catch (PDOException $e) {
                     $db->rollBack();
                     die("Something went wrong :" . $e);

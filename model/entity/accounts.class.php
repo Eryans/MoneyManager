@@ -13,7 +13,7 @@ class Accounts extends Dbh
         return $stmt->fetchAll();
     }
 
-    function newAccountHandler()
+    public function newAccountHandler()
     {
         $db = $this->connectToDatabase();
         if (isset($_REQUEST["bk_acc_submit"])) {
@@ -43,5 +43,15 @@ class Accounts extends Dbh
     private function r4()
     {
         return rand(1000, 9999);
+    }
+
+    public function getAccountsNames()
+    {
+        $db = $this->connectToDatabase();
+        $sql = "SELECT nom,id FROM compte WHERE clientID = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(["id" => $_SESSION["userID"]]);
+        $accounts = $stmt->fetchAll();
+        return $accounts;
     }
 }

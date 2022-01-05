@@ -37,9 +37,17 @@
 	<h2>Opération</h2>
 	<form method="POST">
 		<label for="operation_type">
+			<?php 
+			// Should this below be passed by the controller ??
+			require_once "./model/entity/accounts.class.php";
+			$accountMngr = new Accounts();
+			$accounts = $accountMngr->getAccountsNames();
+			?>
 			<select id="acc_selector" name="acc_selector">
 				<?php
-				require "./model/get_accounts_names.php";
+				foreach ($accounts as $act) {
+					echo "<option value=" . $act['id'] . ">" . $act['nom'] . "</option>";
+				}
 				?>
 			</select>
 			<select id="selector" name="operation_type">
