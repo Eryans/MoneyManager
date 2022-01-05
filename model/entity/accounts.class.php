@@ -54,4 +54,18 @@ class Accounts extends Dbh
         $accounts = $stmt->fetchAll();
         return $accounts;
     }
+
+    public function deleteAccount(int $id){
+        try {
+            $db = $this->connectToDatabase();
+            $db->beginTransaction();
+            $sql = "DELETE FROM compte WHERE id=:id"; // <----- Parent removal stmt
+            $stmt = $db->prepare($sql);
+            $stmt->execute(["id" => htmlspecialchars($id)]);
+            $db->commit();
+        } catch (PDOException $e) {
+            $db->rollBack();
+            echo "Something went wrong when trying to delete account : $e";
+        }
+    }
 }

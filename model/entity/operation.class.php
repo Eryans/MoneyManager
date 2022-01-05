@@ -2,6 +2,7 @@
 require_once "model/Dbh.class.php";
 class Operation extends Dbh
 {
+    //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE
     function operationsHandler()
     {
         /*-------------------- OPERATION HANDLING-------------------------- */
@@ -111,6 +112,20 @@ class Operation extends Dbh
             }
         } catch (PDOException $error) {
             echo "Something went wrong : $error";
+        }
+    }
+    public function deleteOperation($id): void
+    {
+        try {
+            $db = $this->connectToDatabase();
+            $db->beginTransaction();
+            $sql = "DELETE FROM operation WHERE compte_ID=:id"; // <----- Child removal stmt
+            $stmt = $db->prepare($sql);
+            $stmt->execute(["id" => htmlspecialchars($id)]);
+            $db->commit();  
+        } catch (PDOException $e) {
+            $db->rollBack();
+            die("something went wrong :".$e);
         }
     }
 }
