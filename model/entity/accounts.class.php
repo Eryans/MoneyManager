@@ -1,5 +1,5 @@
 <?php
-require_once "./model/Dbh.class.php";
+require_once __DIR__."../../Dbh.class.php";
 class Accounts extends Dbh
 {
     function getAccounts()
@@ -55,7 +55,7 @@ class Accounts extends Dbh
         return $accounts;
     }
 
-    public function deleteAccount(int $id){
+    public function deleteAccount($id){
         try {
             $db = $this->connectToDatabase();
             $db->beginTransaction();
@@ -65,7 +65,7 @@ class Accounts extends Dbh
             $db->commit();
         } catch (PDOException $e) {
             $db->rollBack();
-            echo "Something went wrong when trying to delete account : $e";
+            die("Something went wrong when trying to delete account : $e");
         }
     }
 }

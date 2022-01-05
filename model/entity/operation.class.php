@@ -1,5 +1,5 @@
 <?php
-require_once "model/Dbh.class.php";
+require_once __DIR__."../../Dbh.class.php";
 class Operation extends Dbh
 {
     //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE
