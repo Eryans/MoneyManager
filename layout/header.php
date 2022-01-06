@@ -28,10 +28,12 @@
 	<header class="bg-dark text-white text-center ">
 		<h1 class="m-0 p-2">Money Manager</h1>
 		<?php
-		require "./model/entity/header_log_in_out.php";
+		require "./model/entity/user.class.php";
+		$user = new User();
+		$names = $user->getUserNames();
 		?>
 		<span class="d-flex gap-4 justify-content-end">
-			<?php echo $name;
+			<?php echo $names;
 			echo (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) ? "<button onclick='logOut()'> Log out </button>" : "<button onclick='signIn()'> Sign in </button>";
 			?>
 		</span>

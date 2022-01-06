@@ -42,7 +42,7 @@ class Card
             <button id='deleteBtn' class='btn btn-close align-self-end btn-danger' onclick="showAlert()" value=<?php echo $this->_amount; ?>> </button>
             <p id="alertMsg" class="text-danger d-none"> ATTENTION ! Supprimer un compte est une action définitive êtes vous sûr ?</p>
 <?php
-            echo "<a id='deleteLink' class='btn btn-danger btn-close align-self-end d-none' href='model/delete_account_prg.php?id=$this->_id'> </a>";
+            echo "<a id='deleteLink' class='btn btn-danger btn-close align-self-end d-none' href='delete_account_prg.php?id=$this->_id'> </a>";
         }
         echo
         "<span>

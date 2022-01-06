@@ -2,7 +2,7 @@
 require_once __DIR__."../../Dbh.class.php";
 class Operation extends Dbh
 {
-    //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE
+    //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE AND IN THE CONTROLLER
     function operationsHandler()
     {
         /*-------------------- OPERATION HANDLING-------------------------- */
