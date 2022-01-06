@@ -1,5 +1,5 @@
 <?php
-require "display/cards.php";
+require __DIR__."/cards.class.php";
 
 if (!isset($_SESSION)) {
 	session_start();
@@ -32,15 +32,6 @@ for ($i = 0; $i < count($accounts); $i++) {
 	$operations = new Operation();
     $last_operation = $operations->getLastOperation($accounts[$i]["cID"]);
 
-	/* private string $_name;
-    private string $_cardNum;
-    private string $_owner;
-    private string $_type;
-    private string $_date_creation;
-    private int $_amount;
-    private bool $_isNotDetail;
-    private string $_lastOp;
-    private int $_id; */
 
 	$card = new Card(["_isNotDetail" => true, "_id" => $accounts[$i]["cID"],"_name" => $accounts[$i]["cNom"],"_cardNum" => $accounts[$i]["numero"],
 	"_owner" => $accounts[$i]["owner"],"_amount" => $accounts[$i]["solde"],"_lastOp" => $last_operation, "_date_creation" => $accounts[$i]["date_creation_compte"]]);
