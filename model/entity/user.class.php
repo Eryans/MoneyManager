@@ -4,7 +4,6 @@ class User extends Dbh
 {
     public function getUserNames(): ?string
     {
-        $name = "";
         $db = $this->connectToDatabase();
         if (!isset($_SESSION)) {
             session_set_cookie_params(0);
@@ -18,7 +17,7 @@ class User extends Dbh
             $name = $client["prenom"] . " " . $client["nom"];
             return $name;
         }
-        return $name;
+        return null;
     }
     public function getUserInfo(): ?array
     {

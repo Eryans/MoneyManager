@@ -1,6 +1,6 @@
 
 <?php
-// TODO move condition to controller ( login.php )
+// TODO ( DONE ) move condition to controller ( login.php )
 require_once __DIR__ . "../../Dbh.class.php";
 
 class Connector extends Dbh

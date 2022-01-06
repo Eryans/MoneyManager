@@ -7,8 +7,8 @@ $_SESSION = array();
  
 // Destroy the session.
 session_destroy();
- 
+echo "<h1>DECONNECTING...</h1>";
 // Redirect to login page
-header("location: ../../login.php");
+header("location:login.php");
 exit;
 ?>
