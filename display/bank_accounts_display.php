@@ -32,8 +32,18 @@ for ($i = 0; $i < count($accounts); $i++) {
 	$operations = new Operation();
     $last_operation = $operations->getLastOperation($accounts[$i]["cID"]);
 
-	$card = new Card(true, $accounts[$i]["cID"], $accounts[$i]["cNom"], $accounts[$i]["numero"],
-	$accounts[$i]["owner"], $accounts[$i]["solde"], $last_operation, $accounts[$i]["date_creation_compte"]);
+	/* private string $_name;
+    private string $_cardNum;
+    private string $_owner;
+    private string $_type;
+    private string $_date_creation;
+    private int $_amount;
+    private bool $_isNotDetail;
+    private string $_lastOp;
+    private int $_id; */
+
+	$card = new Card(["_isNotDetail" => true, "_id" => $accounts[$i]["cID"],"_name" => $accounts[$i]["cNom"],"_cardNum" => $accounts[$i]["numero"],
+	"_owner" => $accounts[$i]["owner"],"_amount" => $accounts[$i]["solde"],"_lastOp" => $last_operation, "_date_creation" => $accounts[$i]["date_creation_compte"]]);
 	$card->show_card();
 	echo "</li>";
 }

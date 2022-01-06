@@ -1,25 +1,37 @@
 <?php
+
+// TODO : Rewrite in a way we don't need the isNotDetail bool anymore
 class Card
 {
-    protected string $_name;
-    protected string $_cardNum;
-    protected string $_owner;
-    protected string $_date_creation;
-    protected int $_amount;
-    protected bool $_isNotDetail;
-    protected string $_lastOp;
-    protected int $_id;
+    private string $_name;
+    private string $_cardNum;
+    private string $_owner;
+    private string $_type;
+    private string $_date_creation;
+    private int $_amount;
+    private bool $_isNotDetail;
+    private string $_lastOp;
+    private int $_id;
 
-    public function __construct(bool $isNotDetail = false, int $id, string $name, string $cardNum, string $owner, int $amount, string $last_op, string $date_creation)
+ 
+    public function __construct(array $data = array())
     {
-        $this->_id = $id;
-        $this->_name = $name;
-        $this->_cardNum = $cardNum;
-        $this->_owner = $owner;
-        $this->_amount = $amount;
-        $this->_isNotDetail = $isNotDetail;
-        $this->_lastOp = $last_op;
-        $this->_date_creation = $date_creation;
+        if (!empty($data)) {
+            $this->hydrate($data);
+        }
+    }
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value) {
+            // One gets the setter's name matching the attribute.
+            $method = 'set' . ucfirst($key);
+
+            // If the matching setter exists
+            if (method_exists($this, $method)) {
+                // One calls the setter.
+                $this->$method($value);
+            }
+        }
     }
     function show_card()
     {
@@ -33,7 +45,11 @@ class Card
             echo "<a id='deleteLink' class='btn btn-danger btn-close align-self-end d-none' href='model/delete_account_prg.php?id=$this->_id'> </a>";
         }
         echo
-        "<h2>$this->_name</h2>
+        "<span>
+            <h2>$this->_name</h2>
+            <h3>"; if (!empty($this->_type)){ echo "Type : ".$this->_type; } 
+        echo "</h3>
+        </span>
             <p>$this->_amount €</p>
             <div> 
                 <strong>$this->_owner</strong>
@@ -48,6 +64,132 @@ class Card
             echo "<p><strong>Date création du compte : </strong>$this->_date_creation</p>";
         }
         echo "</article>";
+    }
+
+    /**
+    * @return string
+    */
+    public function get_name(): string {
+    	return $this->_name;
+    }
+
+    /**
+    * @param string $_name
+    */
+    public function set_name(string $_name): void {
+    	$this->_name = $_name;
+    }
+
+    /**
+    * @return string
+    */
+    public function get_cardNum(): string {
+    	return $this->_cardNum;
+    }
+
+    /**
+    * @param string $_cardNum
+    */
+    public function set_cardNum(string $_cardNum): void {
+    	$this->_cardNum = $_cardNum;
+    }
+
+    /**
+    * @return string
+    */
+    public function get_owner(): string {
+    	return $this->_owner;
+    }
+
+    /**
+    * @param string $_owner
+    */
+    public function set_owner(string $_owner): void {
+    	$this->_owner = $_owner;
+    }
+
+    /**
+    * @return string
+    */
+    public function get_type(): string {
+    	return $this->_type;
+    }
+
+    /**
+    * @param string $_type
+    */
+    public function set_type(string $_type): void {
+    	$this->_type = $_type;
+    }
+
+    /**
+    * @return string
+    */
+    public function get_date_creation(): string {
+    	return $this->_date_creation;
+    }
+
+    /**
+    * @param string $_date_creation
+    */
+    public function set_date_creation(string $_date_creation): void {
+    	$this->_date_creation = $_date_creation;
+    }
+
+    /**
+    * @return int
+    */
+    public function get_amount(): int {
+    	return $this->_amount;
+    }
+
+    /**
+    * @param int $_amount
+    */
+    public function set_amount(int $_amount): void {
+    	$this->_amount = $_amount;
+    }
+
+    /**
+    * @return bool
+    */
+    public function get_isNotDetail(): bool {
+    	return $this->_isNotDetail;
+    }
+
+    /**
+    * @param bool $_isNotDetail
+    */
+    public function set_isNotDetail(bool $_isNotDetail): void {
+    	$this->_isNotDetail = $_isNotDetail;
+    }
+
+    /**
+    * @return string
+    */
+    public function get_lastOp(): string {
+    	return $this->_lastOp;
+    }
+
+    /**
+    * @param string $_lastOp
+    */
+    public function set_lastOp(string $_lastOp): void {
+    	$this->_lastOp = $_lastOp;
+    }
+
+    /**
+    * @return int
+    */
+    public function get_id(): int {
+    	return $this->_id;
+    }
+
+    /**
+    * @param int $_id
+    */
+    public function set_id(int $_id): void {
+    	$this->_id = $_id;
     }
 }
 ?>
