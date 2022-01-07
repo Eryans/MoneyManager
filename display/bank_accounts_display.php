@@ -9,7 +9,7 @@ if (!isset($_SESSION)) {
 
 require_once "./model/entity/accounts.class.php";
 require_once "./model/entity/user.class.php";
-$userMngr = new User();
+$userMngr = new User($_SESSION["userID"]);
 $names = $userMngr->getUserNames();
 $accountManager = new Accounts();
 $accounts = $accountManager->getAccounts($_SESSION["userID"]);

@@ -1,75 +1,83 @@
 <?php
-require_once __DIR__."../../Dbh.class.php";
+require_once __DIR__ . "../../Dbh.class.php";
 class Operation extends Dbh
 {
     //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE AND USE IN THE CONTROLLER
-    function operationsHandler()
+    function operationsHandler(?array $currentAccount, int $amount)
     {
         /*-------------------- OPERATION HANDLING-------------------------- */
-        if (isset($_REQUEST["operation_submit"], $_POST["amount"])) {
-            $db = $this->connectToDatabase();
-            if (isset($_POST["acc_selector"])) {
-                // use getAccount from account class in controller
-                // Wait what does this do ?
-                $sql = "SELECT * FROM compte WHERE id = :accID";
-                $stmt = $db->prepare($sql);
-                $selectedAcc = intval($_POST["acc_selector"]);
-                $stmt->execute(["accID" => $selectedAcc]);
-                $currentAccount = $stmt->fetch();
-                $amount = $_POST["amount"];
 
-                $db->beginTransaction();
-                try {
-                    switch ($_POST["operation_type"]) {
-                        case "withdrawal":
-                        case "payment":
-                            if ($currentAccount["solde"] >= $amount && $amount > 0) {
-                                $sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
-                            } else {
-                                echo "<h2 class='text-danger'>Pas assez de fond pour continuer l'opération !</h2>";
-                            }
-                            break;
-                        case "deposit":
-                            $sql = "UPDATE compte SET solde = solde + '$amount' WHERE id=:accID";
-                            break;
+        $db = $this->connectToDatabase();
+        // Put switch in controller and create add and substract function
+        try {
+            switch ($_POST["operation_type"]) {
+
+                case "withdrawal":
+                case "payment":
+                    if ($currentAccount["solde"] >= $amount && $amount > 0) {
+                        $this->substractAmount($amount);
+                        $this->registerOperation($db, $currentAccount, $amount);
+                    } else {
+                        echo "<h2 class='text-danger'>Pas assez de fond pour continuer l'opération !</h2>";
                     }
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute(["accID" => $_POST["acc_selector"]]);
-                    $db->commit();
-                    header("Location:./operation_prg.php");
-                } catch (PDOException $e) {
-                    $db->rollBack();
-                    die("Something went wrong :" . $e);
-                }
-
-                /*-------------------- REGISTERING TRANSACTION OPERATION -------------------------- */
-                $db->beginTransaction();
-                try {
-                    $accountID = $currentAccount["id"];
-                    $operationDescpt = htmlspecialchars($_POST["op_description"]);
-                    $operationDate = date("Y-m-d");
-                    $operationType = htmlspecialchars($_POST["operation_type"]);
-                    $operationAmount = htmlspecialchars($amount);
-                    $operationStatus = "Terminé";
-                    $operationClientID = $currentAccount["clientID"];
-                    $operationReceiver = htmlspecialchars($_POST["receiving_account"]);
-                    $sql = "INSERT INTO operation 
-                VALUES(DEFAULT,'$accountID','$operationDescpt','$operationDate','$operationType','$operationAmount','$operationStatus','$operationClientID','$operationReceiver')";
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute();
-                    $db->commit();
-                } catch (PDOException $e) {
-                    $db->rollBack();
-                    die("Something went wrong :" . $e);
-                }
-
-                /*-------------------- CLOSE CONNEXION -------------------------------- */
-                $db = null;
-                $stmt = null;
+                    break;
+                case "deposit":
+                    $this->addAmount($amount);
+                    $this->registerOperation($db, $currentAccount, $amount);
+                    break;
             }
+        } catch (PDOException $e) {
+            $db->rollBack();
+            die("Something went wrong :" . $e);
         }
     }
-
+    private function addAmount($amount)
+    {
+        $sql = "UPDATE compte SET solde = solde + '$amount' WHERE id=:accID";
+        $this->executeSQL($sql);
+        header("Location:./operation_prg.php");
+    }
+    private function substractAmount($amount)
+    {
+        $sql = "UPDATE compte SET solde = solde - '$amount' WHERE id=:accID";
+        $this->executeSQL($sql);
+        header("Location:./operation_prg.php");
+    }
+    private function executeSQL($sql)
+    {
+        try {
+            $db = $this->connectToDatabase();
+            $db->beginTransaction();
+            $stmt = $db->prepare($sql);
+            $stmt->execute(["accID" => $_POST["acc_selector"]]);
+            $db->commit();
+        } catch (PDOException $e) {
+            $db->rollBack();
+            die("something went wrong : " . $e);
+        }
+    }
+    private function registerOperation($db, $currentAccount, $amount)
+    {
+        $db->beginTransaction();
+        try {
+            $accountID = $currentAccount["id"];
+            $operationDescpt = htmlspecialchars($_POST["op_description"]);
+            $operationDate = date("Y-m-d");
+            $operationType = htmlspecialchars($_POST["operation_type"]);
+            $operationAmount = htmlspecialchars($amount);
+            $operationStatus = "Terminé";
+            $operationClientID = $currentAccount["clientID"];
+            $operationReceiver = htmlspecialchars($_POST["receiving_account"]);
+            $sql = "INSERT INTO operation 
+                VALUES(DEFAULT,'$accountID','$operationDescpt','$operationDate','$operationType','$operationAmount','$operationStatus','$operationClientID','$operationReceiver')";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $db->commit();
+        } catch (PDOException $e) {
+            $db->rollBack();
+            die("Something went wrong :" . $e);
+        }
+    }
     public function getOperations()
     {
         $db = $this->connectToDatabase();
@@ -86,7 +94,6 @@ class Operation extends Dbh
         }
     }
 
-    /* --------RETURN LAST OPERATION INFO SQL--------- */
     public function getLastOperation($id)
     {
         $db = $this->connectToDatabase();
@@ -124,10 +131,10 @@ class Operation extends Dbh
             $sql = "DELETE FROM operation WHERE compte_ID=:id";
             $stmt = $db->prepare($sql);
             $stmt->execute(["id" => htmlspecialchars($id)]);
-            $db->commit();  
+            $db->commit();
         } catch (PDOException $e) {
             $db->rollBack();
-            die("something went wrong :".$e);
+            die("something went wrong :" . $e);
         }
     }
 }

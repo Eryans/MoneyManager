@@ -33,10 +33,10 @@ if (!isset($_SESSION)) {
 	<header class="bg-dark text-white text-center ">
 		<h1 class="m-0 p-2">Money Manager</h1>
 		<?php
-		require "./model/entity/user.class.php";
-		$user = new User();
 		$namesResult = "";
-		if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
+		if (!empty($_SESSION["userID"])) {
+			require "./model/entity/user.class.php";
+			$user = new User($_SESSION["userID"]);
 			$namesResult = $user->getUserNames();
 		}
 		$names = $namesResult ? $namesResult["prenom"] . " " . $namesResult["nom"] : "";
