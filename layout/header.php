@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION)) {
+	session_set_cookie_params(0);
+	session_start();
+} ?>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -30,7 +35,11 @@
 		<?php
 		require "./model/entity/user.class.php";
 		$user = new User();
-		$names = $user->getUserNames();
+		$namesResult = "";
+		if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
+			$namesResult = $user->getUserNames();
+		}
+		$names = $namesResult ? $namesResult["prenom"] . " " . $namesResult["nom"] : "";
 		?>
 		<span class="d-flex gap-4 justify-content-end">
 			<?php echo $names;

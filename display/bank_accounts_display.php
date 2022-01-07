@@ -8,10 +8,13 @@ if (!isset($_SESSION)) {
 /*--------------------ACCOUNTS DISPLAY-------------------------- */
 
 require_once "./model/entity/accounts.class.php";
+require_once "./model/entity/user.class.php";
+$userMngr = new User();
+$names = $userMngr->getUserNames();
 $accountManager = new Accounts();
-$accounts = $accountManager->getAccounts();
-$fName = $accounts[0]["prenom"];
-$lName = $accounts[0]["nom"];
+$accounts = $accountManager->getAccounts($_SESSION["userID"]);
+$fName = $names["prenom"];
+$lName = $names["nom"];
 
 
 echo

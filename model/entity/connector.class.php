@@ -24,5 +24,3 @@ class Connector extends Dbh
 		return $pswrd == trim($pswrdHash) ? true : false;
 	}
 }
-
-?>

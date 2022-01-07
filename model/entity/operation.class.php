@@ -2,13 +2,15 @@
 require_once __DIR__."../../Dbh.class.php";
 class Operation extends Dbh
 {
-    //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE AND IN THE CONTROLLER
+    //TODO : BREAK THIS BIG FUNCTIONS INTO SMALLER ONE AND USE IN THE CONTROLLER
     function operationsHandler()
     {
         /*-------------------- OPERATION HANDLING-------------------------- */
         if (isset($_REQUEST["operation_submit"], $_POST["amount"])) {
             $db = $this->connectToDatabase();
             if (isset($_POST["acc_selector"])) {
+                // use getAccount from account class in controller
+                // Wait what does this do ?
                 $sql = "SELECT * FROM compte WHERE id = :accID";
                 $stmt = $db->prepare($sql);
                 $selectedAcc = intval($_POST["acc_selector"]);
@@ -119,7 +121,7 @@ class Operation extends Dbh
         try {
             $db = $this->connectToDatabase();
             $db->beginTransaction();
-            $sql = "DELETE FROM operation WHERE compte_ID=:id"; // <----- Child removal stmt
+            $sql = "DELETE FROM operation WHERE compte_ID=:id";
             $stmt = $db->prepare($sql);
             $stmt->execute(["id" => htmlspecialchars($id)]);
             $db->commit();  

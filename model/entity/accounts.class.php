@@ -2,15 +2,25 @@
 require_once __DIR__."../../Dbh.class.php";
 class Accounts extends Dbh
 {
-    function getAccounts()
+    function getAccounts(int $id)
     {
         $db = $this->connectToDatabase();
         $db->beginTransaction();
         $sql = "SELECT *,cp.id as cID, cp.nom as cNom FROM compte as cp INNER JOIN client as cl ON cp.clientID = cl.id WHERE clientID = :id";
         $stmt = $db->prepare($sql);
-        $stmt->execute(["id" => $_SESSION["userID"]]);
+        $stmt->execute(["id" => $id]);
         $db->commit();
         return $stmt->fetchAll();
+    }
+    function getAccount(int $userID, int $accountID)
+    {
+        $db = $this->connectToDatabase();
+        $db->beginTransaction();
+        $sql = "SELECT *,cp.id as cID, cp.nom as cNom FROM compte as cp INNER JOIN client as cl ON cp.clientID = cl.id WHERE clientID = :id AND cp.id = :cID";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(["id" => $userID, "cID" => $accountID]);
+        $db->commit();
+        return $stmt->fetch();
     }
 
     public function newAccountHandler()

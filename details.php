@@ -11,25 +11,17 @@ if (!isset($_SESSION)) {
 
 if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
 
-    require "model/database_connexion.php";
-    require "display/cards.class.php";
-
-    /* --------GLOBAL INFO SQL--------- */
-    try {
-        $sql = "SELECT *,cp.id as cID, cp.nom as cNom FROM compte as cp INNER JOIN client as cl ON cp.clientID = cl.id WHERE clientID = :id AND cp.id = :cID";
-        $stmt = $db->prepare($sql);
-        $stmt->execute(["id" => $_SESSION["userID"], "cID" => $_GET["id"]]);
-        $account = $stmt->fetch();
-    } catch (PDOException $error) {
-        echo "Something went wront : $error";
-    }
-    /* --------OPERATION INFO SQL--------- */
+    
+    require_once "display/cards.class.php";
+    require_once "model/entity/accounts.class.php";
     require_once "model/entity/operation.class.php";
+    $accountMngr = new Accounts();
+    $account = $accountMngr->getAccount($_SESSION["userID"],$_GET["id"]);
     $operationsMng = new Operation();
     $last_operation = $operationsMng->getLastOperation($_GET["id"]);
     $operations = $operationsMng->getOperations();
 
-    if ($stmt->rowCount() > 0) {
+    if (count($account) > 0) {
         // Account info
         $card = new Card(["_isNotDetail" => false, "_id" => htmlspecialchars($_GET["id"]),"_name" => $account["cNom"],"_cardNum" => $account["numero"],
         "_owner" => $account["owner"],"_amount" => $account["solde"],"_lastOp" => $last_operation, "_date_creation" => $account["date_creation_compte"],"_type" => $account["acc_type"]]);
