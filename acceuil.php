@@ -1,7 +1,7 @@
 
 
 <?php 
-  include "./layout/header.php" ;
+  ob_start();
   if (!isset($_SESSION)){
     session_set_cookie_params(0);
     session_start();
@@ -20,4 +20,7 @@
 
     <script type="text/javascript" src="./js/blocker.js"></script>
 
-<?php include "./layout/footer.php" ?>
+<?php 
+  $content = ob_get_clean();
+  require_once "./layout/template.php";
+?>

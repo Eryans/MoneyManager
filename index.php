@@ -1,8 +1,5 @@
 <?php 
-    if(!isset($_SESSION)) {
-        session_set_cookie_params(0);
-        session_start();
-    } 
+    ob_start();
 
     if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true){
         header("location:login.php");
@@ -11,8 +8,5 @@
         header("location:acceuil.php");
         exit();
     }
-?>
-<?php include "./layout/header.php" ?>
-
-
-<?php include "./layout/footer.php" ;?>
+    $content = ob_get_clean();
+    require_once "./layout/template.php";

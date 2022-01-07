@@ -1,6 +1,6 @@
+<?php ob_start(); ?>
+<table id="statTable">
 
-<?php include "./layout/header.php"?>
-    <table id="statTable">
-
-    </table>
-<?php include "./layout/footer.php"; ?>
+</table>
+<?php $content = ob_get_clean();
+require_once "./layout/template.php"; ?>

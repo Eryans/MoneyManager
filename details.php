@@ -4,10 +4,7 @@ if (!isset($_SESSION)) {
     session_set_cookie_params(0);
     session_start();
 }
-?>
-<?php include "layout/header.php" ?>
-
-<?php
+ob_start();
 
 if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
 
@@ -26,7 +23,8 @@ if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
         $card = new Card(["_isNotDetail" => false, "_id" => htmlspecialchars($_GET["id"]),"_name" => $account["cNom"],"_cardNum" => $account["numero"],
         "_owner" => $account["owner"],"_amount" => $account["solde"],"_lastOp" => $last_operation, "_date_creation" => $account["date_creation_compte"],"_type" => $account["acc_type"]]);
         $card->show_card();
-        // Operation list ( trying another syntax instead of using echo everywhere btw )
+        // Operation list ( trying another syntax instead of using echo everywhere )
+        // Make code below into a separated display file
         if (count($operations) > 0) {
 ?>
             <div class="overflow-auto d-flex justify-content-center">
@@ -75,8 +73,6 @@ if (!empty($_SESSION["logged_in"]) && $_SESSION["logged_in"]) {
 } else {
     echo "<h2>You must be logged in to acces this page.</h2>";
 }
-
-
+$content = ob_get_clean();
+require_once "./layout/template.php";
 ?>
-
-<?php include "layout/footer.php" ?>

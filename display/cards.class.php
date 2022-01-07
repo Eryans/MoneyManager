@@ -13,8 +13,8 @@ class Card
     private string $_lastOp;
     private int $_id;
 
- 
-    public function __construct(array $data = array())
+
+    public function __construct(?array $data = array())
     {
         if (!empty($data)) {
             $this->hydrate($data);
@@ -23,12 +23,8 @@ class Card
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value) {
-            // One gets the setter's name matching the attribute.
             $method = 'set' . ucfirst($key);
-
-            // If the matching setter exists
             if (method_exists($this, $method)) {
-                // One calls the setter.
                 $this->$method($value);
             }
         }
@@ -47,7 +43,10 @@ class Card
         echo
         "<span>
             <h2>$this->_name</h2>
-            <h3>"; if (!empty($this->_type)){ echo "Type : ".$this->_type; } 
+            <h3>";
+        if (!empty($this->_type)) {
+            echo "Type : " . $this->_type;
+        }
         echo "</h3>
         </span>
             <p>$this->_amount €</p>
@@ -67,129 +66,147 @@ class Card
     }
 
     /**
-    * @return string
-    */
-    public function get_name(): string {
-    	return $this->_name;
+     * @return string
+     */
+    public function get_name(): string
+    {
+        return $this->_name;
     }
 
     /**
-    * @param string $_name
-    */
-    public function set_name(string $_name): void {
-    	$this->_name = $_name;
+     * @param string $_name
+     */
+    public function set_name(string $_name): void
+    {
+        $this->_name = $_name;
     }
 
     /**
-    * @return string
-    */
-    public function get_cardNum(): string {
-    	return $this->_cardNum;
+     * @return string
+     */
+    public function get_cardNum(): string
+    {
+        return $this->_cardNum;
     }
 
     /**
-    * @param string $_cardNum
-    */
-    public function set_cardNum(string $_cardNum): void {
-    	$this->_cardNum = $_cardNum;
+     * @param string $_cardNum
+     */
+    public function set_cardNum(string $_cardNum): void
+    {
+        $this->_cardNum = $_cardNum;
     }
 
     /**
-    * @return string
-    */
-    public function get_owner(): string {
-    	return $this->_owner;
+     * @return string
+     */
+    public function get_owner(): string
+    {
+        return $this->_owner;
     }
 
     /**
-    * @param string $_owner
-    */
-    public function set_owner(string $_owner): void {
-    	$this->_owner = $_owner;
+     * @param string $_owner
+     */
+    public function set_owner(string $_owner): void
+    {
+        $this->_owner = $_owner;
     }
 
     /**
-    * @return string
-    */
-    public function get_type(): string {
-    	return $this->_type;
+     * @return string
+     */
+    public function get_type(): string
+    {
+        return $this->_type;
     }
 
     /**
-    * @param string $_type
-    */
-    public function set_type(string $_type): void {
-    	$this->_type = $_type;
+     * @param string $_type
+     */
+    public function set_type(string $_type): void
+    {
+        $this->_type = $_type;
     }
 
     /**
-    * @return string
-    */
-    public function get_date_creation(): string {
-    	return $this->_date_creation;
+     * @return string
+     */
+    public function get_date_creation(): string
+    {
+        return $this->_date_creation;
     }
 
     /**
-    * @param string $_date_creation
-    */
-    public function set_date_creation(string $_date_creation): void {
-    	$this->_date_creation = $_date_creation;
+     * @param string $_date_creation
+     */
+    public function set_date_creation(string $_date_creation): void
+    {
+        $this->_date_creation = $_date_creation;
     }
 
     /**
-    * @return int
-    */
-    public function get_amount(): int {
-    	return $this->_amount;
+     * @return int
+     */
+    public function get_amount(): int
+    {
+        return $this->_amount;
     }
 
     /**
-    * @param int $_amount
-    */
-    public function set_amount(int $_amount): void {
-    	$this->_amount = $_amount;
+     * @param int $_amount
+     */
+    public function set_amount(int $_amount): void
+    {
+        $this->_amount = $_amount;
     }
 
     /**
-    * @return bool
-    */
-    public function get_isNotDetail(): bool {
-    	return $this->_isNotDetail;
+     * @return bool
+     */
+    public function get_isNotDetail(): bool
+    {
+        return $this->_isNotDetail;
     }
 
     /**
-    * @param bool $_isNotDetail
-    */
-    public function set_isNotDetail(bool $_isNotDetail): void {
-    	$this->_isNotDetail = $_isNotDetail;
+     * @param bool $_isNotDetail
+     */
+    public function set_isNotDetail(bool $_isNotDetail): void
+    {
+        $this->_isNotDetail = $_isNotDetail;
     }
 
     /**
-    * @return string
-    */
-    public function get_lastOp(): string {
-    	return $this->_lastOp;
+     * @return string
+     */
+    public function get_lastOp(): string
+    {
+        return $this->_lastOp;
     }
 
     /**
-    * @param string $_lastOp
-    */
-    public function set_lastOp(string $_lastOp): void {
-    	$this->_lastOp = $_lastOp;
+     * @param string $_lastOp
+     */
+    public function set_lastOp(string $_lastOp): void
+    {
+        $this->_lastOp = $_lastOp;
     }
 
     /**
-    * @return int
-    */
-    public function get_id(): int {
-    	return $this->_id;
+     * @return int
+     */
+    public function get_id(): int
+    {
+        return $this->_id;
     }
 
     /**
-    * @param int $_id
-    */
-    public function set_id(int $_id): void {
-    	$this->_id = $_id;
+     * @param int $_id
+     */
+    public function set_id(int $_id): void
+    {
+        $this->_id = $_id;
     }
 }
 ?>
