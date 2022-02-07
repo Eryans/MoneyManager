@@ -6,7 +6,7 @@ $connec = new Connector();
 
 if (isset($_POST["login_submit"])) {
     if (!empty($_POST["usermail"]) && !empty($_POST["password"])) {
-        $usermail = filter_var($_POST["usermail"], FILTER_VALIDATE_EMAIL, "Error");
+        $usermail = filter_var($_POST["usermail"], FILTER_VALIDATE_EMAIL, ["Error"]);
         $userpswrd = htmlspecialchars($_POST["password"]);
         $connexionMsg = $connec->connectUser(htmlspecialchars($usermail), $userpswrd);
     }
